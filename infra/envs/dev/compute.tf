@@ -28,6 +28,10 @@ resource "azurerm_container_app" "main" {
       image  = "mcr.microsoft.com/k8se/quickstart:latest"
       cpu    = 0.5
       memory = "1Gi"
+      env {
+        name  = "AZURE_CLIENT_ID"
+        value = azurerm_user_assigned_identity.main.client_id
+      }
     }
   }
   identity {
@@ -39,7 +43,7 @@ resource "azurerm_container_app" "main" {
     identity = azurerm_user_assigned_identity.main.id
   }
   ingress {
-    target_port                = 8080
+    target_port                = 80
     external_enabled           = true
     allow_insecure_connections = false
     traffic_weight {
@@ -75,6 +79,10 @@ resource "azurerm_container_app" "main_2" {
       image  = "mcr.microsoft.com/k8se/quickstart:latest"
       cpu    = 0.25
       memory = "0.5Gi"
+      env {
+        name  = "AZURE_CLIENT_ID"
+        value = azurerm_user_assigned_identity.main.client_id
+      }
     }
   }
   identity {
