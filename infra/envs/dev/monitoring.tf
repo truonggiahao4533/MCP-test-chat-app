@@ -83,7 +83,7 @@ resource "azurerm_monitor_diagnostic_setting" "diag_5" {
 
 resource "azurerm_monitor_diagnostic_setting" "diag_6" {
   name                       = "send-to-log-analytics"
-  target_resource_id         = azurerm_storage_account.main.id
+  target_resource_id         = "${azurerm_storage_account.main.id}/blobServices/default"
   log_analytics_workspace_id = azurerm_log_analytics_workspace.main.id
 
   enabled_log {
